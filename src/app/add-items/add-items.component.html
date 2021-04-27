@@ -1,0 +1,16 @@
+<label class="badge badge-secondary">
+  Add Item<input [(ngModel)]="item" id="itm"  />
+</label><br>
+<button class="btn btn-info" (click)="saveItem()" onclick="itm.value=''">Add</button>&nbsp;
+<button class="btn btn-success" routerLink="showItems/{{items}}">Submit</button><br><br>
+
+<!-- <label class="badge badge-secondary">Added Items ::<br></label>
+<div *ngFor="let i of items" >
+     <p>{{i}}</p>
+</div>  -->
+
+
+<!-- <div style="display: none;">
+<app-show-items [productList]="items"></app-show-items>
+</div>  -->
+
