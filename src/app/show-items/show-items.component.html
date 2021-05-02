@@ -8,13 +8,15 @@
           <th>Qty</th>
           <th></th>
           <th></th>
+          <th></th>
      </tr>
      <tr *ngFor="let product of productLists;index as i">
           <td>{{i+1}}</td>
-          <td>{{product.name}}</td>
+          <td>{{product.name}}  <div *ngIf="product.itemIditable"><input [(ngModel)]="updatedNameValue"/></div></td>
           <td>{{product.qty}}</td>
           <td><button class="btn btn-success" (click)="operations(product,'add')">Add</button></td>
           <td><button class="btn btn-danger" (click)="operations(product,'del')">Delete</button></td>
+          <td><button class="btn btn-info" (click)="operations(product,'edit')">{{buttonName}}</button></td>
      </tr>
      <tr>
           <td colspan="2">Total Quantity</td>
@@ -23,6 +25,7 @@
           </td> 
           <td></td>
           <td></td>
+          <th></th>
      </tr>
   </table>
 </div>

@@ -3,7 +3,7 @@ import { AddItemsComponent } from './../add-items/add-items.component';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { Directive, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-show-items',
@@ -15,6 +15,8 @@ export class ShowItemsComponent implements OnInit {
   items: String;
   listItems: String[];
   totalQty:number = 0;
+  buttonName:string = "Edit";
+  updatedNameValue: string;
 
   productLists: ProductDetails[] = [];  
 
@@ -28,7 +30,7 @@ export class ShowItemsComponent implements OnInit {
     this.listItems = this.items.split(',');
 
     for(let i=0; i<this.listItems.length; i++){
-      this.productLists.push(new ProductDetails(this.listItems[i],1));
+      this.productLists.push(new ProductDetails(this.listItems[i],1,false));
       this.totalQty++;
     }
   }
@@ -37,14 +39,31 @@ export class ShowItemsComponent implements OnInit {
     console.log("Clicked Item Is ::"+obj.name);
 
     for(let i=0; i<this.productLists.length; i++){
+      
       if(this.productLists[i]===obj){
+
           if(oprName=="add"){
             this.productLists[i].qty++;
             this.totalQty++;
 
           }else if((oprName=="del")){
+
             this.productLists[i].qty--;
             this.totalQty--;
+          }else if(oprName=="edit"){
+
+            this.productLists[i].itemIditable = !this.productLists[i].itemIditable;
+               
+                if(this.productLists[i].itemIditable == true){
+                   this.buttonName = "Update"
+                }else{
+                  this.buttonName = "Edit"
+                }
+
+                if(this.buttonName == "Edit"){
+                  this.productLists[i].name = this.updatedNameValue;
+                  this.updatedNameValue = '';
+                }
           }       
       }
     }  
@@ -54,9 +73,12 @@ export class ShowItemsComponent implements OnInit {
 class ProductDetails{
   name: String;
   qty: number=1;
+  itemIditable: boolean = false;
+  
 
-  constructor(productName:String,quantity:number){
+  constructor(productName:String,quantity:number,itemEdit:boolean){
      this.name =  productName;
      this.qty  =  quantity;
+     this.itemIditable = itemEdit;
   }
 }
